@@ -1,5 +1,5 @@
 <% provide(:title, 'Home') %>
-<div class="center hero-unit">
+<div>
   <h1>Welcome to the Sample App</h1>
   <h2>
     This is the home page for the 
