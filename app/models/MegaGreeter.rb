@@ -9,7 +9,7 @@ attr_accessor :names
     elsif @names.respond_to?("each")
       # @names is a list, iterate!
       @names.each do |name|
-        puts "Hello #{name}!"
+      puts "Hello #{name}!"
       end
     else
       puts "Hello #{@names}"
@@ -25,19 +25,34 @@ attr_accessor :names
       puts "Goodbye #{@names}. Come back soon!"
     end
   end
+
+  def upper_case(txt)
+    txt.upcase!
+  end
+
+  def greet_children(*children_names)
+    "Hello #{children_names.join(', ')}"
+  end
+
+  def mangle(*args)
+    upper_case(greet_children(args))
+  end
 end
 
-if __FILE__ == $0
-  mg = MegaGreeter.new
-  mg.say_hi
-  mg.say_bye
+  if __FILE__ == $0
+    mg = MegaGreeter.new
+    mg.say_hi
+    mg.say_bye
 
-  mg.names = "Fred"
-  mg.say_hi
-  mg.say_bye
+    mg.names = "Fred"
+    mg.say_hi
+    mg.say_bye
 
-  mg.names = ["Fred", "wilma", "Barney"]
-  mg.names = %w( Joe Frank Bob)
-  mg.say_hi
-  mg.say_bye
-end
+    mg.names = ["Fred", "wilma", "Barney"]
+    mg.names = %w( Joe Frank Bob)
+    mg.say_hi
+    mg.say_bye
+
+    puts mg.greet_children(%w{Jane Bob Zach})
+    p mg.mangle %w{Tom Dick Harry}
+  end
