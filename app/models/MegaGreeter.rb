@@ -37,22 +37,44 @@ attr_accessor :names
   def mangle(*args)
     upper_case(greet_children(args))
   end
+
+  def greet(person)
+    msg = "Hello #{person.isAdult? ? person.title : 'child'} #{person.name}"
+    p msg
+  end
 end
 
-  if __FILE__ == $0
-    mg = MegaGreeter.new
-    mg.say_hi
-    mg.say_bye
+class Person
+  attr_accessor :name, :age, :title
 
-    mg.names = "Fred"
-    mg.say_hi
-    mg.say_bye
-
-    mg.names = ["Fred", "wilma", "Barney"]
-    mg.names = %w( Joe Frank Bob)
-    mg.say_hi
-    mg.say_bye
-
-    puts mg.greet_children(%w{Jane Bob Zach})
-    p mg.mangle %w{Tom Dick Harry}
+  def initialize(title, name, age)
+    @title = title
+    @name = name
+    @age = age
   end
+
+  def isAdult?
+    return age > 17
+  end
+end
+
+if __FILE__ == $0
+  mg = MegaGreeter.new
+  mg.say_hi
+  mg.say_bye
+
+  mg.names = "Fred"
+  mg.say_hi
+  mg.say_bye
+
+  mg.names = ["Fred", "wilma", "Barney"]
+  mg.names = %w( Joe Frank Bob)
+  mg.say_hi
+  mg.say_bye
+
+  puts mg.greet_children(%w{Jane Bob Zach})
+  p mg.mangle %w{Tom Dick Harry}
+
+  minor = Person.new("Mr.", "Huckleberry", 14)
+  mg.greet(minor)
+end

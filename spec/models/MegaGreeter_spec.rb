@@ -13,4 +13,25 @@ describe MegaGreeter do
   it "should upper case" do
     @mega_greeter.upper_case("tiny tim").should == "TINY TIM"
   end
+
+  it "should mangle" do
+
+  end
+
+  context "Dealing with people" do
+    let(:minor) { double("Person", :isAdult? => false, :name => "Tommy")}
+    let(:adult) { double("Person", :isAdult? => true, :name => "Brown", :title => "Mrs.")}
+
+    it "should greet minor" do
+      minor.should_receive(:isAdult?)
+      @mega_greeter.greet(minor).should == "Hello child Tommy"
+    end
+
+    it "should greet adult" do
+      adult.should_receive(:isAdult?)
+      @mega_greeter.greet(adult).should == "Hello Mrs. Brown"
+    end
+  end
+
+
 end
