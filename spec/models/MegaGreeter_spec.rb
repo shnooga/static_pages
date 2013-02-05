@@ -4,14 +4,15 @@ describe MegaGreeter do
   before(:all) { @mega_greeter = MegaGreeter.new(names: "Jane")}
   subject {@mega_greeter}
   it { should respond_to("say_hi") }
+  it { should respond_to("say_bye") }
 
   it "should greet" do
-    puts @mega_greeter
-    @mega_greeter.greet_children(%w{Inky Pinky Clyde}).should == "Hello Inky, Pinky, Clyde"
+    expect(@mega_greeter.greet_children(%w{Inky Pinky Clyde})).to eq("Hello Inky, Pinky, Clyde")
   end
 
   it "should upper case" do
-    @mega_greeter.upper_case("tiny tim").should == "TINY TIM"
+    expect(@mega_greeter.upper_case("tiny tim")).to eq("TINY TIM")
+    expect(@mega_greeter.upper_case("tiny tim")).to match(/[A-Z ]+/)
   end
 
   it "should mangle" do
@@ -23,13 +24,12 @@ describe MegaGreeter do
     let(:adult) { double("Person", :isAdult? => true, :name => "Brown", :title => "Mrs.")}
 
     it "should greet minor" do
-      minor.should_receive(:isAdult?)
-      @mega_greeter.greet(minor).should == "Hello child Tommy"
+      expect(@mega_greeter.greet(minor)).to eq("Hello child Tommy")
     end
 
     it "should greet adult" do
       adult.should_receive(:isAdult?)
-      @mega_greeter.greet(adult).should == "Hello Mrs. Brown"
+      expect(@mega_greeter.greet(adult)).to eq("Hello Mrs. Brown")
     end
   end
 
